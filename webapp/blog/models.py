@@ -4,6 +4,9 @@ from django.db import models
 class NewsTag(models.Model):
     title = models.CharField(max_length=255, primary_key=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = 'newstag'
 
@@ -15,6 +18,9 @@ class News(models.Model):
     image = models.ImageField()
     date = models.DateTimeField(null=False, default=None)
     tag = models.ManyToManyField(NewsTag)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         db_table = 'news'
