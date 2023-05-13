@@ -17,7 +17,7 @@ class News(models.Model):
     id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=255)
     text = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to='images/blog/')
     date = models.DateTimeField(null=True, blank=True, default=None)
     tag = models.ManyToManyField(NewsTag)
 
