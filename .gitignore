@@ -1,3 +1,6 @@
+# My project files
+setenv.shg
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
