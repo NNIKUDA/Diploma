@@ -1,5 +1,5 @@
 # My project files
-setenv.shg
+setenv.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
