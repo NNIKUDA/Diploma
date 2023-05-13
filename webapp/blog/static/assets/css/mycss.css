@@ -1,0 +1,11 @@
+.footer-middle {
+    background-color: #444444;
+}
+
+.footer-bottom {
+    background-color: #444444;
+}
+
+.footer-bottom container::before {
+    background-color: #444444;
+}
