@@ -38,7 +38,7 @@
 
 <body>
     <div class="page-wrapper">
-        {% block header %}
+        {% block top_header %}
             <header class="header header-intro-clearance header-3">
                 <div class="header-top">
                     <div class="container">
@@ -669,7 +669,7 @@
                                             <li><a href="coming-soon.html">Coming Soon</a></li>
                                         </ul>
                                     </li>
-                                    <li class="{% if request.resolver_match.url_name == 'blog' %}active{% endif %}">
+                                    <li class="{% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'single' or request.resolver_match.url_name == 'tag' %}active{% endif %}">
                                         <a href="{% url 'blog' %}" class="with-ul">Blog</a>
                                     </li>
                                     <li>
@@ -703,11 +703,11 @@
                     </div><!-- End .container -->
                 </div><!-- End .header-bottom -->
             </header><!-- End .header -->
-        {% endblock %}
+        {% endblock top_header %}
 
         {% block content %}
 
-        {% endblock %}
+        {% endblock content %}
 
         {% block footer %}
             <footer class="footer"  >
@@ -782,7 +782,7 @@
                     </div><!-- End .container -->
                 </div><!-- End .footer-bottom -->
             </footer><!-- End .footer -->
-        {% endblock %}
+        {% endblock footer %}
     </div>
 
     
