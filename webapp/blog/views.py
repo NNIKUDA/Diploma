@@ -5,9 +5,12 @@ from .models import NewsTag, News, Comment
 from django.utils import timezone
 
 
-def blog(request):
-    news = News.objects.filter(date__lte=timezone.now()).order_by('-date')
-    paginator = Paginator(news, 1)
+def blog(request, tag=None):
+    if tag:
+        news = News.objects.filter(date__lte=timezone.now(), tag=tag).order_by('-date')
+    else:
+        news = News.objects.filter(date__lte=timezone.now()).order_by('-date')
+    paginator = Paginator(news, 3)
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
