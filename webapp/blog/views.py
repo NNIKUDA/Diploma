@@ -22,3 +22,14 @@ def blog(request, tag=None):
                         NewsTag.objects.all()), key=lambda x: x[1], reverse=True)
     }
     return render(request, 'blog.html', context=context)
+
+
+def single(request, id):
+    article = News.objects.get(id=id)
+    context = {
+        'page_obj': News.objects.filter(date__lte=timezone.now()).order_by('-date'),
+        'tags': sorted(((tag, News.objects.filter(date__lte=timezone.now(), tag=tag.title).count()) for tag in
+                        NewsTag.objects.all()), key=lambda x: x[1], reverse=True),
+        'article': article,
+    }
+    return render(request, 'single.html', context=context)
