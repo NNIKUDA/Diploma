@@ -120,3 +120,19 @@ def sing_out(request):
     logout(request)
     return redirect(reverse('login'))
 
+
+class MyPasswordResetView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'password_reset.html'
+    form_class = MyPasswordResetForm
+    success_url = reverse_lazy("home")
+    success_message = 'Mail was send'
+
+
+class MyPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+    form_class = MySetPasswordForm
+    success_url = reverse_lazy("login")
+    success_message = 'Password changed'
+
+
+
