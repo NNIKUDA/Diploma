@@ -55,3 +55,63 @@ class SingInForm(forms.Form):
         fields = '__all__'
         # model = User
 
+
+def validate_name(value):
+    if not value.isalpha():
+        raise ValidationError('This field must contain only letters')
+    return value
+
+
+class ProfileForm(forms.Form):
+    new_email = forms.EmailField(max_length=254, required=False)
+    username = forms.CharField(max_length=150, required=False)
+    first_name = forms.CharField(max_length=150, validators=[validate_name], required=False)
+    last_name = forms.CharField(max_length=150, validators=[validate_name], required=False)
+    email = forms.EmailField(max_length=254)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget = HiddenInput()
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
+    def _post_clean(self):
+        """Reject usernames that differ only in case."""
+        user = get_user_model().objects.get(email=self.cleaned_data['email'])
+        username = self.cleaned_data.get("username")
+        email = self.cleaned_data.get("new_email")
+        if user.username != username:
+            if (
+                    get_user_model().objects.filter(username__iexact=username).exists()
+            ):
+                self.add_error("username", "This name already exist")
+
+        if user.email != email:
+            if (
+                    get_user_model().objects.filter(email__iexact=email).exists()
+            ):
+                self.add_error("new_email", "This email already exist")
+
+    def save(self, commit=True):
+        # user = super().save(commit=False)
+        user = get_user_model().objects.get(email=self.cleaned_data['email'])
+        if user.username != self.cleaned_data['username']:
+            user.username = self.cleaned_data['username']
+        if user.email != self.cleaned_data['new_email']:
+            user.email = self.cleaned_data['new_email']
+
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        if commit:
+            user.save()
+        return user
+
+
+class MyPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+

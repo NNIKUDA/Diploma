@@ -120,31 +120,3 @@ def sing_out(request):
     logout(request)
     return redirect(reverse('login'))
 
-
-class MyPasswordResetView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'password_reset.html'
-    form_class = MyPasswordResetForm
-    success_url = reverse_lazy("home")
-    success_message = 'Mail was send'
-
-
-class MyPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
-    template_name = 'password_reset_confirm.html'
-    form_class = MySetPasswordForm
-    success_url = reverse_lazy("login")
-    success_message = 'Password changed'
-
-
-def a(request):
-    change_password_form = MyPasswordChangeForm(request.user, request.POST)
-    context = {
-        'change_password_form': change_password_form,
-    }
-    if request.method == 'POST':
-        # change_password_form = MyPasswordChangeForm(request.POST)
-        if change_password_form.is_valid():
-            messages.success('Password changed')
-        print('aaaaaaaaaaaaaa2')
-        print(change_password_form.error_messages, change_password_form.errors.as_data())
-        # context.update({'change_password_form':  change_password_form})
-    return render(request, 'a.html', context)
