@@ -8,6 +8,7 @@ class NewsTag(models.Model):
         return self.title
 
     class Meta:
+        managed = False
         db_table = 'newstag'
         verbose_name = 'News tag'
         verbose_name_plural = 'News tags'
@@ -25,6 +26,7 @@ class News(models.Model):
         return self.title
 
     class Meta:
+        managed = False
         db_table = 'news'
         verbose_name = 'Article'
         verbose_name_plural = 'News'
@@ -39,6 +41,7 @@ class Comment(models.Model):
     # todo user_id = models.ForeignKey
 
     class Meta:
+        managed = False
         db_table = 'comment'
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
