@@ -13,6 +13,7 @@ admin.site.index_title = 'WebShop App'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
+    path('profile/', include('user.urls')),
 ]
 
 if settings.DEBUG:
