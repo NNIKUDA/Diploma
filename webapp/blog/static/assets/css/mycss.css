@@ -9,3 +9,45 @@
 .footer-bottom container::before {
     background-color: #444444;
 }
+
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+h3{
+    font-family:Quicksand;
+    font-size:1.6rem;
+}
+
+.alert .close{
+    font-size:3rem;
+}
+.alert{
+  width:50%;
+  margin:20px auto;
+
+  padding:20px;
+  padding-right:30px;
+  position:relative;
+  border-radius:5px;
+  box-shadow:0 0 15px 5px #ccc;
+}
+
+.close{
+  position:absolute;
+  width:30px;
+  height:30px;
+  opacity:0.5;
+  border-width:1px;
+  border-style:solid;
+  border-radius:50%;
+  right:15px;
+  top:25px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.alert-success{
+color: #155724;
+background-color: #d4edda;
+border-color: #c3e6cb;
+}
