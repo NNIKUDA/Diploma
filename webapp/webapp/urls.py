@@ -12,6 +12,7 @@ admin.site.index_title = 'WebShop App'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('blog/', include('blog.urls')),
     path('profile/', include('user.urls')),
 ]

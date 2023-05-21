@@ -28,7 +28,7 @@ def login_view(request):
 def sing_in(request):
     sing_in_form = SingInForm(request.POST)
     if sing_in_form.is_valid():
-        remember_me = sing_in_form.cleaned_data['remember_me']
+        remember_me = sing_in_form.cleaned_data['remember_box']
         user = authenticate(email=sing_in_form.cleaned_data["email"], password=sing_in_form.cleaned_data["password"])
         if user:
             login(request, user)
