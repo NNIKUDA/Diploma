@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def produc_list(request):
+    return render(request, 'category-list.html')
