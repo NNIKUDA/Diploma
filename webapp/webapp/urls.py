@@ -9,6 +9,8 @@ from django.conf.urls.static import static
 
 admin.site.site_header = 'WebShop administration'
 admin.site.index_title = 'WebShop App'
+admin.site.site_url = '/profile/index'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

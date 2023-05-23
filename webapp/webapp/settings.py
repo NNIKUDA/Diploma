@@ -86,6 +86,8 @@ SOCIALACCOUNT_PROVIDERS = \
 
 LOGIN_REDIRECT_URL = '/profile/index'
 
+LOGOUT_REDIRECT_URL = '/profile/index'
+
 ROOT_URLCONF = 'webapp.urls'
 
 TEMPLATES = [
