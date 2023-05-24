@@ -8,3 +8,6 @@ def about_view(request):
 def contact_view(request):
     return render(request, "contact.html")
 
+
+def faq_view(request):
+    return render(request, "faq.html")

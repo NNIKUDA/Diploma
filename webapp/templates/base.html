@@ -288,10 +288,8 @@
                                     <li>
                                         <a href="{% url 'contact' %}" class="with-ul">Contact</a>
                                     </li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="faq.html">FAQs</a></li>
-                                    <li><a href="404.html">Error 404</a></li>
-                                    <li><a href="coming-soon.html">Coming Soon</a></li>
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="{% url 'faq' %}">FAQs</a></li>
                                 </ul>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'single' or request.resolver_match.url_name == 'tag' %}active{% endif %}">
@@ -363,7 +361,7 @@
                                 <li><a href="{% url 'about' %}">About Molla</a></li>
                                 <li><a href="#">Our Services</a></li>
                                 <li><a href="#">How to shop on Molla</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="{% url 'faq' %}">FAQ</a></li>
                                 <li><a href="{% url 'contact' %}">Contact us</a></li>
                             </ul><!-- End .widget-list -->
                         </div><!-- End .widget -->
