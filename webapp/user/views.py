@@ -135,4 +135,5 @@ class MyPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
     success_message = 'Password changed'
 
 
-
+def wishlist_view(request):
+    return render(request, "wishlist.html")
