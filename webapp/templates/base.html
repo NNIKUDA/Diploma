@@ -283,12 +283,7 @@
 
                                 <ul>
                                     <li>
-                                        <a href="about.html" class="sf-with-ul">About</a>
-
-                                        <ul>
-                                            <li><a href="about.html">About 01</a></li>
-                                            <li><a href="about-2.html">About 02</a></li>
-                                        </ul>
+                                        <a href="{% url 'about' %}" class="with-ul">About</a>
                                     </li>
                                     <li>
                                         <a href="contact.html" class="sf-with-ul">Contact</a>
@@ -370,7 +365,7 @@
                             <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
                             <ul class="widget-list">
-                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="{% url 'about' %}">About Molla</a></li>
                                 <li><a href="#">Our Services</a></li>
                                 <li><a href="#">How to shop on Molla</a></li>
                                 <li><a href="faq.html">FAQ</a></li>
