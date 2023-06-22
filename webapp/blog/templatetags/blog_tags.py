@@ -5,6 +5,6 @@ register = template.Library()
 
 
 @register.simple_tag()
-def get_comment_count_by_news(news_id=None):
+def get_comment_count_by_news(news_id):
     return Comment.objects.filter(news_id=news_id).count()
 

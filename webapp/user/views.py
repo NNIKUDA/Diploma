@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.urls import reverse, reverse_lazy
@@ -9,9 +10,15 @@ from django.contrib.auth import authenticate, login, logout, get_user_model, upd
 
 from .forms import SingInForm, SingUpForm, ProfileForm, MyPasswordResetForm, MySetPasswordForm, \
     MyPasswordChangeForm
+from product.views import mixin_context
+
+from .models import User
+from product.models import Product
 
 
 def index(request):
+    context = {}
+    context.update(mixin_context())
     return render(request, 'index.html')
 
 
@@ -21,6 +28,7 @@ def login_view(request):
         'sing_in_form': SingInForm(),
         'active': 'login',
     }
+    context.update(mixin_context())
     return render(request, 'login.html', context=context)
 
 
@@ -42,6 +50,7 @@ def sing_in(request):
         'sing_in_form': sing_in_form,
         'active': 'login',
     }
+    context.update(mixin_context())
     return render(request, 'login.html', context=context)
 
 
@@ -62,6 +71,7 @@ def sing_up(request):
         'sing_in_form': SingInForm(),
         'active': 'register',
     }
+    context.update(mixin_context())
     return render(request, 'login.html', context=context)
 
 
@@ -71,6 +81,7 @@ def dashboard(request):
         'active': 'dashboard',
         'change_password_form': MyPasswordChangeForm(user)
     }
+    context.update(mixin_context())
     if request.method == 'GET':
         initial_data = {
             'username': user.username if user.username else '',
@@ -107,6 +118,7 @@ def change_password(request):
         'profile_form': ProfileForm(initial_data),
         'change_password_form': change_password_form,
     }
+    context.update(mixin_context())
     if request.method == 'POST':
         if change_password_form.is_valid():
             user = change_password_form.save()
@@ -136,4 +148,21 @@ class MyPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
 
 
 def wishlist_view(request):
-    return render(request, "wishlist.html")
+    context = {
+        "products": request.user.favorite.all()
+    }
+    print(context)
+    context.update(mixin_context())
+    return render(request, "wishlist.html", context=context)
+
+
+@login_required
+def add_to_wish_list(request, product_id):
+    product_exist = Product.favorite.through.objects.filter(user_id=request.user.id, product_id=product_id)
+    if product_exist:
+        product_exist.delete()
+        return HttpResponseRedirect(request.GET.get('next'))
+    else:
+        Product.favorite.through.objects.create(user_id=request.user.id, product_id=product_id).save()
+        return HttpResponseRedirect(request.GET.get('next'))
+

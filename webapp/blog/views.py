@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import NewsTag, News, Comment
 from django.utils import timezone
+from product.views import mixin_context
 
 
 def blog(request, tag=None):
@@ -21,6 +22,7 @@ def blog(request, tag=None):
         'tags': sorted(((tag, News.objects.filter(date__lte=timezone.now(), tag=tag.title).count()) for tag in
                         NewsTag.objects.all()), key=lambda x: x[1], reverse=True)
     }
+    context.update(mixin_context())
     return render(request, 'blog.html', context=context)
 
 
@@ -32,4 +34,5 @@ def single(request, id):
                         NewsTag.objects.all()), key=lambda x: x[1], reverse=True),
         'article': article,
     }
+    context.update(mixin_context())
     return render(request, 'single.html', context=context)

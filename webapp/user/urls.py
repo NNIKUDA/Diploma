@@ -13,5 +13,6 @@ urlpatterns = [
     path('password-reset/', MyPasswordResetView.as_view(), name='password_reset'),
     path('password-reset-confirm/<uidb64>/<token>/', MyPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('wishlist', wishlist_view, name="wishlist"),
+    path("add_to_wishlist/<int:product_id>", add_to_wish_list, name="add_to_wishlist")
 ]
 
